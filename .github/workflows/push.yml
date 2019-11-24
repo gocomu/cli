@@ -21,3 +21,9 @@ jobs:
     
     - name: Check that everything works
       run: ./gocomu new cli -name test
+    
+    - name: Run tests
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic
+
+    - name: Upload results to Codecov
+      run: bash <(curl -s https://codecov.io/bash) -t ${{secrets.CODECOV_TOKEN}}
