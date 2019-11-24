@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v1
 
     - name: Build
-      run: go install -v ./cmd/gocomu
+      run: go build -v ./cmd/gocomu
     
     - name: Check that everything works
-      run: gocomu new cli -name test
+      run: ./gocomu new cli -name test
