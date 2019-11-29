@@ -9,7 +9,7 @@
 You can a. download a compiled binary fron [releases](https://github.com/gocomu/cli/releases)
 or be simply run `go get github.com/gocomu/cli/cmd/gocomu`
 
-## useage
+## use
 
 Test that everything works by printing `--help` flag
 
@@ -41,6 +41,10 @@ Flags:
 
 ### create a new project
 
+gocomu provides cli & gui based templates to get you started.
+
+#### cli
+
 `gocomu new cli -name sampleProject`
 
 ```
@@ -55,6 +59,9 @@ Flags:
 ├── go.mod
 └── output
 ```
+
+#### gui
+
 
 # TODO
 - [ ] Create new project
