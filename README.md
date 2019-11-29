@@ -2,12 +2,11 @@
 
 ![](https://github.com/gocomu/cli/workflows/release/badge.svg?branch=master) [![codecov](https://codecov.io/gh/gocomu/cli/branch/master/graph/badge.svg)](https://codecov.io/gh/gocomu/cli)
 
-# cli
+# gocomu
 
 TODO:
 - [ ] Create new project
-  - [ ] CLI Template
-  - [ ] CUI Template
+  - [x] CLI Template
   - [ ] GUI Template
 - [ ] Project serve
   - [ ] markers flag for starting from certain point in compositions
