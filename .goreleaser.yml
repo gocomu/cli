@@ -8,9 +8,9 @@ before:
     #- go generate ./...
 builds:
 - id: "gocomu"
-- main: ./cmd/gocomu
-- binary: gocomu
-- env:
+  main: ./cmd/gocomu
+  binary: gocomu
+  env:
   - CGO_ENABLED=0
 archives:
 - replacements:
