@@ -12,6 +12,10 @@ builds:
   binary: gocomu
   env:
   - CGO_ENABLED=0
+  goos:
+  - linux
+  - darwin
+  - windows
 archives:
 - replacements:
     darwin: Darwin
