@@ -43,4 +43,4 @@ release:
 
   # You can change the name of the GitHub release.
   # Default is `{{.Tag}}`
-  name_template: "{{.ProjectName}}-v{{.Version}}"
+  name_template: "GOCOMU--v{{.Version}}"
