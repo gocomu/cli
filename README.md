@@ -4,7 +4,59 @@
 
 # gocomu
 
-TODO:
+## installation
+
+You can a. download a compiled binary fron [releases](https://github.com/gocomu/cli/releases)
+or be simply run `go get github.com/gocomu/cli/cmd/gocomu`
+
+## useage
+
+Test that everything works by printing `--help` flag
+
+```
+$ gocomu --help
+
+      ::::::::       ::::::::       ::::::::       ::::::::         :::   :::      :::    ::: 
+    :+:    :+:     :+:    :+:     :+:    :+:     :+:    :+:       :+:+: :+:+:     :+:    :+:  
+   +:+            +:+    +:+     +:+            +:+    +:+      +:+ +:+:+ +:+    +:+    +:+   
+  :#:            +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+    
+ +#+   +#+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
+#+#    #+#     #+#    #+#     #+#    #+#     #+#    #+#      #+#       #+#    #+#    #+#      
+########       ########       ########       ########       ###       ###     ########        
+
+  v0.0.1 - GOCOMU CLI
+
+Available commands:
+
+   new       Create New Project 
+   embed     Embed all *.wav/*.aiff files as []byte 
+   serve     Hot load your composition after save 
+   offline   Render the output as wav/aiff 
+
+Flags:
+
+  -help
+        Get help on the 'gocomu' command.
+```
+
+### create a new project
+
+`gocomu new cli -name sampleProject`
+
+```
+.
+├── cmd
+│   └── sampleProject
+│       └── main.go
+├── embed
+│   ├── embedded.go
+│   └── embed.go
+├── gocomu.yml
+├── go.mod
+└── output
+```
+
+# TODO
 - [ ] Create new project
   - [x] CLI Template
   - [ ] GUI Template
