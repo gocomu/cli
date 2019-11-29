@@ -4,23 +4,26 @@
 
 # gocomu
 
+`gocomu` is a command user interface designed to help speed things up when working with [`comu` library](http://github.com/gocomu/comu).  
+
 ## installation
 
-You can a. download a compiled binary fron [releases](https://github.com/gocomu/cli/releases)
-or be simply run `go get github.com/gocomu/cli/cmd/gocomu`
+You can download the latest pre-compiled binary from [releases](https://github.com/gocomu/cli/releases)
+
+or simply run `go get github.com/gocomu/cli/cmd/gocomu`
 
 ## use
 
-Test that everything works by printing `--help` flag
+Test that everything works by printing `-help` flag
 
 ```
-$ gocomu --help
+$ gocomu -help
 
       ::::::::       ::::::::       ::::::::       ::::::::         :::   :::      :::    ::: 
     :+:    :+:     :+:    :+:     :+:    :+:     :+:    :+:       :+:+: :+:+:     :+:    :+:  
    +:+            +:+    +:+     +:+            +:+    +:+      +:+ +:+:+ +:+    +:+    +:+   
-  :#:            +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+    
- +#+   +#+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
+  :#:  ~*+#+     +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+ 
+ +#+    #+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
 #+#    #+#     #+#    #+#     #+#    #+#     #+#    #+#      #+#       #+#    #+#    #+#      
 ########       ########       ########       ########       ###       ###     ########        
 
@@ -28,7 +31,7 @@ $ gocomu --help
 
 Available commands:
 
-   new       Create New Project 
+   new       Create a new project 
    embed     Embed all *.wav/*.aiff files as []byte 
    serve     Hot load your composition after save 
    offline   Render the output as wav/aiff 
@@ -61,6 +64,12 @@ gocomu provides cli & gui based templates to get you started.
 ```
 
 #### gui
+
+### embed
+
+### serve
+
+### offline render
 
 
 # TODO
