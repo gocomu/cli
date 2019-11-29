@@ -11,14 +11,30 @@ import (
 	"github.com/gocomu/cli/templates"
 )
 
-func NewProject(projectName, projectType string, rtOut int) error {
-	type TemplatesVariables struct {
-		ProjectName string
-		ProjectType string
-		RTout       string
-	}
+type RTout int
 
+const (
+	PortAudio RTout = iota
+	Oto
+)
+
+type ProjectType int
+
+const (
+	Cli = ProjectType(iota)
+	Cui
+	Gui
+)
+
+type TemplatesVariables struct {
+	ProjectName string
+	ProjectType ProjectType
+	Output      RTout
+}
+
+func newProject(projectType ProjectType, projectName string, rtOut RTout) error {
 	dir, _ := os.Getwd()
+
 	// root
 	// check if directory exists
 	if _, err := os.Stat(projectName); !os.IsNotExist(err) {
@@ -42,13 +58,18 @@ func NewProject(projectName, projectType string, rtOut int) error {
 	// create a folder named projectName
 	os.Mkdir(projectName+"/cmd/"+projectName, 0755)
 	// generate main.go
-	maingo, _ := os.Create(projectName + "/cmd/" + projectName + "/main.go")
-	defer maingo.Close()
-	t = template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
-	t.Execute(maingo, &TemplatesVariables{
-		ProjectName: projectName,
-	})
-	maingo.Sync()
+	switch projectType {
+	case Cli:
+		maingo, _ := os.Create(projectName + "/cmd/" + projectName + "/main.go")
+		defer maingo.Close()
+		t = template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
+		t.Execute(maingo, &TemplatesVariables{
+			ProjectName: projectName,
+		})
+		maingo.Sync()
+	case Cui:
+	case Gui:
+	}
 
 	// embed
 	// create embed folder
