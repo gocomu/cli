@@ -7,7 +7,9 @@ before:
     # you may remove this if you don't need go generate
     #- go generate ./...
 builds:
+- id: "gocomu"
 - main: ./cmd/gocomu/main.go
+- binary: gocomu
 - env:
   - CGO_ENABLED=0
 archives:
