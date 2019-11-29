@@ -1,4 +1,4 @@
-name: build
+name: pullreq
 on:
   push:
     # Sequence of patterns matched against refs/heads
