@@ -1,0 +1,29 @@
+name: build
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.13
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.13
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v1
+
+    - name: Build
+      run: go build -v ./cmd/gocomu
+    
+    - name: Check that everything works
+      run: ./gocomu new cli -name test
+    
+    - name: Run tests
+      run: go test -race -coverprofile=coverage.txt -covermode=atomic
+
+    - name: Upload results to Codecov
+      run: bash <(curl -s https://codecov.io/bash) -t ${{secrets.CODECOV_TOKEN}}
