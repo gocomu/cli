@@ -1,9 +1,8 @@
 package templates
 
-const EmbedGo = `package main
-// +build embed
+const EmbedGo = `// +build embed
 
-
+package main
 `
 
 const EmbeddedGo = `package embed

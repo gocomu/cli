@@ -89,6 +89,7 @@ gocomu new %s -name sampleProject
 	// create project's root folder
 	os.Mkdir(projectName, 0755)
 
+	os.Chdir(projectName)
 	// create gocomu.yml
 	data, _ := yaml.Marshal(&GocomuYaml{
 		Name:        projectName,
@@ -97,11 +98,12 @@ gocomu new %s -name sampleProject
 		Type:        ptype,
 		ServeOutput: output,
 	})
-	err := ioutil.WriteFile("/gocomu.yml", data, 0644)
+	err := ioutil.WriteFile("gocomu.yml", data, 0755)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
+	os.Chdir(dir)
 
 	// cmd
 	// create cmd folder
@@ -119,6 +121,14 @@ gocomu new %s -name sampleProject
 		})
 		maingo.Sync()
 
+		sinego, _ := os.Create(projectName + "/sine.go")
+		defer sinego.Close()
+		t = template.Must(template.New("sinego").Parse(templates.CliTemplateSineGo))
+		t.Execute(sinego, &TemplatesVariables{
+			ProjectName: projectName,
+		})
+		sinego.Sync()
+
 		ptype = "CLI"
 	case Gui:
 	}
@@ -135,7 +145,7 @@ gocomu new %s -name sampleProject
 	})
 	embedgo.Sync()
 
-	embeddedgo, _ := os.Create(projectName + "/embed/embeddedgo.go")
+	embeddedgo, _ := os.Create(projectName + "/embed/embedded.go")
 	defer embeddedgo.Close()
 	t = template.Must(template.New("embeddedgo").Parse(templates.EmbeddedGo))
 	t.Execute(embeddedgo, &TemplatesVariables{
@@ -175,7 +185,7 @@ To see all available commands run
 or visit https://github.com/gocomu/cli/ and go through 
 the README for extensive documentation on how to use %s 
 
-More guides and tutorials on usage of your newly craeted project
+More guides and tutorials on usage of your newly created project
 exist on comu library's wiki at https://github.com/gocomu/comu/wiki/cli
 
 %s
