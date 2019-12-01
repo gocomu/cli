@@ -64,7 +64,7 @@ gocomu provides cli & gui based templates to get you started.
 └── output/
 ```
 
-For gocomu itself as well as new created cli projects we use [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it [on author's website](https://clir.leaanthony.com/).
+Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it [at author's website](https://clir.leaanthony.com/).
 
 
 #### GUI
