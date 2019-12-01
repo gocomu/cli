@@ -1,9 +1,9 @@
 name: pullreq
+
 on:
-  push:
-    # Sequence of patterns matched against refs/heads
+  pull_request:
     branches:    
-      - develop         # Push events on master branch
+      - develop
       - master
 
 jobs:
