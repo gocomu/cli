@@ -22,8 +22,8 @@ $ gocomu -help
       ::::::::       ::::::::       ::::::::       ::::::::         :::   :::      :::    ::: 
     :+:    :+:     :+:    :+:     :+:    :+:     :+:    :+:       :+:+: :+:+:     :+:    :+:  
    +:+            +:+    +:+     +:+            +:+    +:+      +:+ +:+:+ +:+    +:+    +:+   
-  :#:  ~*+#+     +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+ 
- +#+    #+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
+  :#:            +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+    
+ +#+   +#+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
 #+#    #+#     #+#    #+#     #+#    #+#     #+#    #+#      #+#       #+#    #+#    #+#      
 ########       ########       ########       ########       ###       ###     ########        
 
@@ -31,10 +31,11 @@ $ gocomu -help
 
 Available commands:
 
-   new       Create a new project 
+   new       Create New Project 
    embed     Embed all *.wav/*.aiff files as []byte 
    serve     Hot load your composition after save 
    offline   Render the output as wav/aiff 
+   build     Build a stand-alone binary 
 
 Flags:
 
