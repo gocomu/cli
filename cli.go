@@ -1,12 +1,10 @@
 package cli
 
 import (
-	"errors"
-	"fmt"
-
 	"github.com/leaanthony/clir"
 )
 
+// ClirActions cli handlers
 func ClirActions(cli *clir.Cli) {
 	// Set the custom banner
 	cli.SetBannerFunction(customBanner)
@@ -19,29 +17,23 @@ func ClirActions(cli *clir.Cli) {
 	var out int
 	newCLI := new.NewSubCommand("cli", "New CLI Project")
 	newCLI.StringFlag("name", "Project name", &projectName)
-	newCLI.IntFlag("out", "Choose between Port-audio and Oto for audio output", &out)
+	newCLI.IntFlag("out", "Choose sound output. 0 = PortAudio, 1 = Oto", &out)
 	newCLI.Action(func() error {
-		err := prepareNewProject("cli", projectName, out)
-		if err != nil {
-			fmt.Println(err)
-		}
-		return err
-	})
 
-	// new cui
-	newCUI := new.NewSubCommand("cui", "New CUI Project")
-	newCUI.StringFlag("name", "Project name", &projectName)
-	newCUI.Action(func() error {
-		println(`** Under Construction **`)
-		return nil
+		selectedOut := selectedOutputHelper(out)
+
+		err := newProject(Cli, projectName, selectedOut)
+		return err
 	})
 
 	// new gui
 	newGUI := new.NewSubCommand("gui", "New GUI Project")
 	newGUI.StringFlag("name", "Project name", &projectName)
-	newCUI.Action(func() error {
-		println(`** Under Construction **`)
-		return nil
+	newGUI.Action(func() error {
+		selectedOut := selectedOutputHelper(out)
+
+		err := newProject(Gui, projectName, selectedOut)
+		return err
 	})
 
 	// embed
@@ -54,13 +46,20 @@ func ClirActions(cli *clir.Cli) {
 	// serve
 	serve := cli.NewSubCommand("serve", "Hot load your composition after save")
 	serve.Action(func() error {
-		println(`** Under Construction **`)
-		return nil
+		err := projectServe()
+		return err
 	})
 
 	// offline render
 	offline := cli.NewSubCommand("offline", "Render the output as wav/aiff")
 	offline.Action(func() error {
+		println(`** Under Construction **`)
+		return nil
+	})
+
+	// build a binary
+	build := cli.NewSubCommand("build", "Build a stand-alone binary")
+	build.Action(func() error {
 		println(`** Under Construction **`)
 		return nil
 	})
@@ -80,35 +79,9 @@ func customBanner(cli *clir.Cli) string {
   ` + cli.Version() + " - " + cli.ShortDescription()
 }
 
-func prepareNewProject(projectType, projectName string, out int) error {
-	// check if projectName flag is empty
-	if projectName == "" {
-		// if so, print instruction and return
-		return errors.New(`Please fill the project name flag
-		ie. gocomu new cli -name sampleProject
-				`)
+func selectedOutputHelper(out int) RTout {
+	if out == int(PortAudio) {
+		return PortAudio
 	}
-
-	// assign ProjectType to subcommand
-	var ptype ProjectType
-	switch projectType {
-	case "cli":
-		ptype = Cli
-	case "cui":
-		ptype = Cui
-	case "gui":
-		ptype = Gui
-	}
-
-	// assign RTout to flag
-	var output RTout
-	switch out {
-	case 0:
-		output = PortAudio
-	case 1:
-		output = Oto
-	}
-
-	err := newProject(ptype, projectName, output)
-	return err
+	return Oto
 }

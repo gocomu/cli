@@ -3,29 +3,39 @@ package cli
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"text/template"
 
 	"github.com/gocomu/cli/templates"
+	"github.com/gookit/color"
+	"gopkg.in/yaml.v2"
 )
 
+// RTout type helps cli's -out flag
 type RTout int
 
 const (
+	// PortAudio output
 	PortAudio RTout = iota
+	// Oto output
 	Oto
 )
 
+// ProjectType type helps cli's `cli` subcommand
 type ProjectType int
 
 const (
+	// Cli project type
 	Cli = ProjectType(iota)
-	Cui
+	// Gui project type
 	Gui
 )
 
+// TemplatesVariables holds values to be substituted
+// when creating/executing biolerplate templates
 type TemplatesVariables struct {
 	ProjectName string
 	ProjectType ProjectType
@@ -33,6 +43,32 @@ type TemplatesVariables struct {
 }
 
 func newProject(projectType ProjectType, projectName string, rtOut RTout) error {
+	yellow := color.FgYellow.Render
+	green := color.FgGreen.Render
+	magenta := color.FgLightMagenta.Render
+	var ptype string
+	var output string
+	switch projectType {
+	case Cli:
+		ptype = "cli"
+	case Gui:
+		ptype = "gui"
+	}
+	// check if projectName flag is empty
+	if projectName == "" {
+		fmt.Printf(`
+-name flag can not be empty! try ie:`)
+		color.Green.Printf(`
+gocomu new %s -name sampleProject
+
+`, ptype)
+		fmt.Println(`if you need to see all available flags run`)
+		color.Green.Printf(`gocomu new %s -help
+
+`, ptype)
+		return nil
+	}
+
 	dir, _ := os.Getwd()
 
 	// root
@@ -44,13 +80,19 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	os.Mkdir(projectName, 0755)
 
 	// create gocomu.yml
-	yml, _ := os.Create(projectName + "/gocomu.yml")
-	defer yml.Close()
-	t := template.Must(template.New("gocomuyaml").Parse(templates.GocomuYaml))
-	t.Execute(yml, &TemplatesVariables{
-		ProjectName: projectName,
-	})
-	yml.Sync()
+	data, _ := yaml.Marshal(&t)
+	err := ioutil.WriteFile("/gocomu.yml", data, 0644)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	// yml, _ := os.Create(projectName + "/gocomu.yml")
+	// defer yml.Close()
+	// t := template.Must(template.New("gocomuyaml").Parse(templates.GocomuYaml))
+	// t.Execute(yml, &TemplatesVariables{
+	// 	ProjectName: projectName,
+	// })
+	// yml.Sync()
 
 	// // cmd
 	// create cmd folder
@@ -62,13 +104,21 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	case Cli:
 		maingo, _ := os.Create(projectName + "/cmd/" + projectName + "/main.go")
 		defer maingo.Close()
-		t = template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
+		t := template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
 		t.Execute(maingo, &TemplatesVariables{
 			ProjectName: projectName,
 		})
 		maingo.Sync()
-	case Cui:
+
+		ptype = "CLI"
 	case Gui:
+	}
+
+	switch rtOut {
+	case PortAudio:
+		output = "PortAudio"
+	case Oto:
+		output = "Oto"
 	}
 
 	// embed
@@ -77,7 +127,7 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	// generate embed.go & emdedded.go
 	embedgo, _ := os.Create(projectName + "/embed/embed.go")
 	defer embedgo.Close()
-	t = template.Must(template.New("embedgo").Parse(templates.EmbedGo))
+	t := template.Must(template.New("embedgo").Parse(templates.EmbedGo))
 	t.Execute(embedgo, &TemplatesVariables{
 		ProjectName: projectName,
 	})
@@ -98,11 +148,37 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	projectDir := filepath.Join(dir, projectName)
 	os.Chdir(projectDir)
 	cmd := exec.Command("go", "mod", "init", projectName)
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(`New project created!`)
+	fmt.Printf(`
+
+New %s project created!
+
+Project Name: %s
+Sound Output: %s
+
+To serve the project and get hot reloading everytime 
+you create, save or remove files from project folder
+change into project directory "%s" and run:
+
+%s
+
+To see all available commands run
+
+%s
+
+or visit https://github.com/gocomu/cli/ and go through 
+the README for extensive documentation on how to use %s 
+
+%s
+
+`, green(ptype), green(projectName), green(output), yellow("cd "+projectName+"/"), yellow("gocomu serve"), yellow("gocomu -help"), green("gocomu"), magenta(`Note: Cli support is provided by Clir library https://github.com/leaanthony/clir
+Documantion on how to use it can be found at https://clir.leaanthony.com/
+However you can opt to use any other CLI library like cobra, urfave/cli etc..
+Check out more available libraries at awesome go https://awesome-go.com/#command-line
+Examples and demos live at https://github.com/gocomu/cli/examples`))
 	return nil
 }
