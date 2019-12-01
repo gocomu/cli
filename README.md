@@ -6,13 +6,13 @@
 
 `gocomu` is a command user interface designed to help speed things up when working with [`comu` library](http://github.com/gocomu/comu).  
 
-## installation
+## Installation
 
 You can download the latest pre-compiled binary from [releases](https://github.com/gocomu/cli/releases)
 
 or simply run `go get github.com/gocomu/cli/cmd/gocomu`
 
-## use
+## Use
 
 Test that everything works by printing `-help` flag
 
@@ -42,11 +42,11 @@ Flags:
         Get help on the 'gocomu' command.
 ```
 
-### create a new project
+### Create a new project
 
 gocomu provides cli & gui based templates to get you started.
 
-#### cli
+#### CLI
 
 `gocomu new cli -name sampleProject`
 
@@ -63,13 +63,15 @@ gocomu provides cli & gui based templates to get you started.
 └── output
 ```
 
-#### gui
+#### GUI
 
-### embed
+### Embed
 
-### serve
+### Serve
 
-### offline render
+### Offline render
+
+### Build
 
 
 # TODO
