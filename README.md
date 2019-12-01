@@ -53,10 +53,10 @@ gocomu provides cli & gui based templates to get you started.
 
 ```
 .
-├── cmd/
+├── cmd
 │   └── sampleProject
 │       └── main.go
-├── embed/
+├── embed
 │   ├── embedded.go
 │   └── embed.go
 ├── gocomu.yml
@@ -64,7 +64,7 @@ gocomu provides cli & gui based templates to get you started.
 └── output/
 ```
 
-Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it [at author's website](https://clir.leaanthony.com/).
+Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it at [author's website](https://clir.leaanthony.com/).
 
 
 #### GUI
