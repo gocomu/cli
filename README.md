@@ -82,10 +82,11 @@ For instructions on how to install refer to [project's documentation](https://gi
 
 
 # TODO
-- [ ] Create new project
+- [x] Create new project
   - [x] CLI Template
   - [ ] GUI Template
-- [ ] Project serve
-  - [ ] markers flag for starting from certain point in compositions
+- [x] Project serve
+  - [ ] comu's timeline starting markers/ques flag
 - [ ] Project embedder (wav/aiff)
 - [ ] Render audio output
+- [ ] Build stand-alone app
