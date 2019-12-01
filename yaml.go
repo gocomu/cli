@@ -17,8 +17,7 @@ type GocomuYaml struct {
 
 // Yaml .
 func Yaml() *GocomuYaml {
-	// create gocomu.yml
-	data, _ := ioutil.ReadFile("/gocomu.yml")
+	data, _ := ioutil.ReadFile("gocomu.yml")
 	yamlData := &GocomuYaml{}
 	yaml.Unmarshal(data, &yamlData)
 	return yamlData
