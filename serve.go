@@ -9,14 +9,11 @@ import (
 	"time"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/gocomu/cli/templates"
 	"github.com/gookit/color"
 	"gopkg.in/yaml.v2"
 )
 
 var watcher *fsnotify.Watcher
-
-var t templates.GocomuYaml
 
 func projectServe() error {
 	// check if gocomu.yml is present inside current dir
@@ -35,14 +32,19 @@ No yaml file found!
 		}
 
 	}
-	yaml.Unmarshal(data, &t)
+
+	var yamlData GocomuYaml
+	yaml.Unmarshal(data, &yamlData)
+
+	// do stuff with yamlData
+	// then continue
 
 	timeStarted := time.Now()
 	fmt.Printf(`
 Started serving %s
 at %s
 
-`, dir, timeStarted)
+`, yamlData.Name, timeStarted)
 
 	// creates a new file watcher
 	watcher, _ = fsnotify.NewWatcher()

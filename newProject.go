@@ -46,14 +46,24 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	yellow := color.FgYellow.Render
 	green := color.FgGreen.Render
 	magenta := color.FgLightMagenta.Render
+
 	var ptype string
 	var output string
+
 	switch projectType {
 	case Cli:
 		ptype = "cli"
 	case Gui:
 		ptype = "gui"
 	}
+
+	switch rtOut {
+	case PortAudio:
+		output = "PortAudio"
+	case Oto:
+		output = "Oto"
+	}
+
 	// check if projectName flag is empty
 	if projectName == "" {
 		fmt.Printf(`
@@ -80,21 +90,20 @@ gocomu new %s -name sampleProject
 	os.Mkdir(projectName, 0755)
 
 	// create gocomu.yml
-	data, _ := yaml.Marshal(&t)
+	data, _ := yaml.Marshal(&GocomuYaml{
+		Name:        projectName,
+		Description: "Demo Project",
+		Version:     "v0.0.0",
+		Type:        ptype,
+		ServeOutput: output,
+	})
 	err := ioutil.WriteFile("/gocomu.yml", data, 0644)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	// yml, _ := os.Create(projectName + "/gocomu.yml")
-	// defer yml.Close()
-	// t := template.Must(template.New("gocomuyaml").Parse(templates.GocomuYaml))
-	// t.Execute(yml, &TemplatesVariables{
-	// 	ProjectName: projectName,
-	// })
-	// yml.Sync()
 
-	// // cmd
+	// cmd
 	// create cmd folder
 	os.Mkdir(projectName+"/cmd", 0755)
 	// create a folder named projectName
@@ -112,13 +121,6 @@ gocomu new %s -name sampleProject
 
 		ptype = "CLI"
 	case Gui:
-	}
-
-	switch rtOut {
-	case PortAudio:
-		output = "PortAudio"
-	case Oto:
-		output = "Oto"
 	}
 
 	// embed
@@ -172,6 +174,9 @@ To see all available commands run
 
 or visit https://github.com/gocomu/cli/ and go through 
 the README for extensive documentation on how to use %s 
+
+More guides and tutorials on usage of your newly craeted project
+exist on comu library's wiki at https://github.com/gocomu/comu/wiki/cli
 
 %s
 

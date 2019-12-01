@@ -42,7 +42,7 @@ Flags:
         Get help on the 'gocomu' command.
 ```
 
-### Create a new project
+### New
 
 gocomu provides cli & gui based templates to get you started.
 
@@ -52,18 +52,24 @@ gocomu provides cli & gui based templates to get you started.
 
 ```
 .
-├── cmd
+├── cmd/
 │   └── sampleProject
 │       └── main.go
-├── embed
+├── embed/
 │   ├── embedded.go
 │   └── embed.go
 ├── gocomu.yml
 ├── go.mod
-└── output
+└── output/
 ```
 
+For gocomu itself as well as new created cli projects we use [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it [on author's website](https://clir.leaanthony.com/).
+
+
 #### GUI
+
+**NOTE: in order to use the gui template you need `wails` on your system.
+For instructions on how to install refer to [project's documentation](https://github.com/wailsapp/wails#installation).**
 
 ### Embed
 
