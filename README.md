@@ -32,9 +32,9 @@ $ gocomu -help
 Available commands:
 
    new       Create New Project 
-   embed     Embed all *.wav/*.aiff files as []byte 
    serve     Hot load your composition while working
    offline   Render the output as wav/aiff 
+   embed     Embed all *.wav/*.aiff files as []byte 
    build     Build a stand-alone binary 
 
 Flags:
