@@ -22,8 +22,8 @@ $ gocomu -help
       ::::::::       ::::::::       ::::::::       ::::::::         :::   :::      :::    ::: 
     :+:    :+:     :+:    :+:     :+:    :+:     :+:    :+:       :+:+: :+:+:     :+:    :+:  
    +:+            +:+    +:+     +:+            +:+    +:+      +:+ +:+:+ +:+    +:+    +:+   
-  :#:  ~*+#+     +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+ 
- +#+    #+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
+  :#:            +#+    +:+     +#+            +#+    +:+      +#+  +:+  +#+    +#+    +:+    
+ +#+   +#+#     +#+    +#+     +#+            +#+    +#+      +#+       +#+    +#+    +#+     
 #+#    #+#     #+#    #+#     #+#    #+#     #+#    #+#      #+#       #+#    #+#    #+#      
 ########       ########       ########       ########       ###       ###     ########        
 
@@ -31,10 +31,11 @@ $ gocomu -help
 
 Available commands:
 
-   new       Create a new project 
-   embed     Embed all *.wav/*.aiff files as []byte 
-   serve     Hot load your composition after save 
+   new       Create New Project 
+   serve     Hot load your composition while working
    offline   Render the output as wav/aiff 
+   embed     Embed all *.wav/*.aiff files as []byte 
+   build     Build a stand-alone binary 
 
 Flags:
 
@@ -52,10 +53,10 @@ gocomu provides cli & gui based templates to get you started.
 
 ```
 .
-├── cmd/
+├── cmd
 │   └── sampleProject
 │       └── main.go
-├── embed/
+├── embed
 │   ├── embedded.go
 │   └── embed.go
 ├── gocomu.yml
@@ -63,7 +64,7 @@ gocomu provides cli & gui based templates to get you started.
 └── output/
 ```
 
-For gocomu itself as well as new created cli projects we use [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it [on author's website](https://clir.leaanthony.com/).
+Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it at [author's website](https://clir.leaanthony.com/).
 
 
 #### GUI
@@ -75,16 +76,22 @@ For instructions on how to install refer to [project's documentation](https://gi
 
 ### Serve
 
+`gocomu serve`
+
+
 ### Offline render
 
 ### Build
 
+`gocomu build`
+
 
 # TODO
-- [ ] Create new project
+- [x] Create new project
   - [x] CLI Template
   - [ ] GUI Template
-- [ ] Project serve
-  - [ ] markers flag for starting from certain point in compositions
+- [x] Project serve
+  - [ ] comu's timeline starting markers/ques flag
 - [ ] Project embedder (wav/aiff)
-- [x] Render audio output
+- [ ] Render audio output
+- [x] Build stand-alone app
