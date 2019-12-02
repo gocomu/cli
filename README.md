@@ -93,5 +93,6 @@ For instructions on how to install refer to [project's documentation](https://gi
 - [x] Project serve
   - [ ] comu's timeline starting markers/ques flag
 - [ ] Project embedder (wav/aiff)
-- [ ] Render audio output
+- [ ] Record audio output in real-time (wav/aiff)
+- [ ] Render offline
 - [x] Build stand-alone app
