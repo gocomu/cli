@@ -1,11 +1,6 @@
 package cli
 
 import (
-	"fmt"
-	"os"
-	"os/exec"
-	"syscall"
-
 	"github.com/leaanthony/clir"
 )
 
@@ -65,24 +60,8 @@ func ClirActions(cli *clir.Cli) {
 	// build a binary
 	build := cli.NewSubCommand("build", "Build a stand-alone binary")
 	build.Action(func() error {
-		fmt.Println("Starting Building")
-		binary, lookErr := exec.LookPath("go")
-		if lookErr != nil {
-			panic(lookErr)
-		}
-
-		yamlData := Yaml()
-		args := []string{"go", "build", "-o", "output/" + yamlData.Name, "./cmd/" + yamlData.Name}
-		env := os.Environ()
-		execErr := syscall.Exec(binary, args, env)
-		if execErr != nil {
-			panic(execErr)
-		}
-
-		fmt.Printf(`
-Sucess! File %s can be found inside output/ directory
-`, yamlData.Name)
-		return nil
+		err := BuildApp()
+		return err
 	})
 }
 
