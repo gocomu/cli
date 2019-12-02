@@ -1,6 +1,11 @@
 package cli
 
 import (
+	"fmt"
+	"os"
+	"os/exec"
+	"syscall"
+
 	"github.com/leaanthony/clir"
 )
 
@@ -36,15 +41,8 @@ func ClirActions(cli *clir.Cli) {
 		return err
 	})
 
-	// embed
-	embed := cli.NewSubCommand("embed", "Embed all *.wav/*.aiff files as []byte")
-	embed.Action(func() error {
-		println(`** Under Construction **`)
-		return nil
-	})
-
 	// serve
-	serve := cli.NewSubCommand("serve", "Hot load your composition after save")
+	serve := cli.NewSubCommand("serve", "Hot load your composition while working")
 	serve.Action(func() error {
 		err := projectServe()
 		return err
@@ -57,10 +55,33 @@ func ClirActions(cli *clir.Cli) {
 		return nil
 	})
 
+	// embed
+	embed := cli.NewSubCommand("embed", "Embed all *.wav/*.aiff files as []byte")
+	embed.Action(func() error {
+		println(`** Under Construction **`)
+		return nil
+	})
+
 	// build a binary
 	build := cli.NewSubCommand("build", "Build a stand-alone binary")
 	build.Action(func() error {
-		println(`** Under Construction **`)
+		fmt.Println("Starting Building")
+		binary, lookErr := exec.LookPath("go")
+		if lookErr != nil {
+			panic(lookErr)
+		}
+
+		yamlData := Yaml()
+		args := []string{"go", "build", "-o", "output/" + yamlData.Name, "./cmd/" + yamlData.Name}
+		env := os.Environ()
+		execErr := syscall.Exec(binary, args, env)
+		if execErr != nil {
+			panic(execErr)
+		}
+
+		fmt.Printf(`
+Sucess! File %s can be found inside output/ directory
+`, yamlData.Name)
 		return nil
 	})
 }

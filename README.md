@@ -87,4 +87,4 @@ For instructions on how to install refer to [project's documentation](https://gi
 - [ ] Project serve
   - [ ] markers flag for starting from certain point in compositions
 - [ ] Project embedder (wav/aiff)
-- [ ] Render audio output
+- [x] Render audio output

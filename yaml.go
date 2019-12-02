@@ -15,7 +15,7 @@ type GocomuYaml struct {
 	ServeOutput string
 }
 
-// Yaml .
+// Yaml reads & returns content from gocomu.yml
 func Yaml() *GocomuYaml {
 	data, _ := ioutil.ReadFile("gocomu.yml")
 	yamlData := &GocomuYaml{}

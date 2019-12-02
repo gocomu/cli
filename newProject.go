@@ -11,36 +11,8 @@ import (
 
 	"github.com/gocomu/cli/templates"
 	"github.com/gookit/color"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
-
-// RTout type helps cli's -out flag
-type RTout int
-
-const (
-	// PortAudio output
-	PortAudio RTout = iota
-	// Oto output
-	Oto
-)
-
-// ProjectType type helps cli's `cli` subcommand
-type ProjectType int
-
-const (
-	// Cli project type
-	Cli = ProjectType(iota)
-	// Gui project type
-	Gui
-)
-
-// TemplatesVariables holds values to be substituted
-// when creating/executing biolerplate templates
-type TemplatesVariables struct {
-	ProjectName string
-	ProjectType ProjectType
-	Output      RTout
-}
 
 func newProject(projectType ProjectType, projectName string, rtOut RTout) error {
 	yellow := color.FgYellow.Render
@@ -89,7 +61,7 @@ gocomu new %s -name sampleProject
 	// create project's root folder
 	os.Mkdir(projectName, 0755)
 
-	os.Chdir(projectName)
+	//os.Chdir(projectName)
 	// create gocomu.yml
 	data, _ := yaml.Marshal(&GocomuYaml{
 		Name:        projectName,
@@ -98,38 +70,63 @@ gocomu new %s -name sampleProject
 		Type:        ptype,
 		ServeOutput: output,
 	})
-	err := ioutil.WriteFile("gocomu.yml", data, 0755)
+	err := ioutil.WriteFile(projectName+"/gocomu.yml", data, 0755)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	os.Chdir(dir)
+	//os.Chdir(dir)
 
 	// cmd
 	// create cmd folder
 	os.Mkdir(projectName+"/cmd", 0755)
 	// create a folder named projectName
 	os.Mkdir(projectName+"/cmd/"+projectName, 0755)
-	// generate main.go
+
 	switch projectType {
 	case Cli:
-		maingo, _ := os.Create(projectName + "/cmd/" + projectName + "/main.go")
-		defer maingo.Close()
-		t := template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
-		t.Execute(maingo, &TemplatesVariables{
-			ProjectName: projectName,
-		})
-		maingo.Sync()
+		// generate main.go
+		templates.CreateFile(
+			// path
+			projectName+"/cmd/"+projectName,
+			// file name
+			"/main.go",
+			// template
+			templates.CliTemplateMainGo,
+			// data
+			&templates.Data{
+				ProjectName: projectName,
+			},
+		)
+		// maingo, _ := os.Create(projectName + "/cmd/" + projectName + "/main.go")
+		// defer maingo.Close()
+		// t := template.Must(template.New("maingo").Parse(templates.CliTemplateMainGo))
+		// t.Execute(maingo, &templates.TemplatesVariables{
+		// 	ProjectName: projectName,
+		// })
+		// maingo.Sync()
 
-		sinego, _ := os.Create(projectName + "/sine.go")
-		defer sinego.Close()
-		t = template.Must(template.New("sinego").Parse(templates.CliTemplateSineGo))
-		t.Execute(sinego, &TemplatesVariables{
-			ProjectName: projectName,
-		})
-		sinego.Sync()
+		// generate sine.go
+		templates.CreateFile(
+			// path
+			projectName,
+			// file name
+			"/sine.go",
+			// template
+			templates.CliTemplateSineGo,
+			// data
+			&templates.Data{
+				ProjectName: projectName,
+			},
+		)
+		// sinego, _ := os.Create(projectName + "/sine.go")
+		// defer sinego.Close()
+		// t := template.Must(template.New("sinego").Parse(templates.CliTemplateSineGo))
+		// t.Execute(sinego, &templates.Data{
+		// 	ProjectName: projectName,
+		// })
+		// sinego.Sync()
 
-		ptype = "CLI"
 	case Gui:
 	}
 
@@ -140,7 +137,7 @@ gocomu new %s -name sampleProject
 	embedgo, _ := os.Create(projectName + "/embed/embed.go")
 	defer embedgo.Close()
 	t := template.Must(template.New("embedgo").Parse(templates.EmbedGo))
-	t.Execute(embedgo, &TemplatesVariables{
+	t.Execute(embedgo, &templates.Data{
 		ProjectName: projectName,
 	})
 	embedgo.Sync()
@@ -148,7 +145,7 @@ gocomu new %s -name sampleProject
 	embeddedgo, _ := os.Create(projectName + "/embed/embedded.go")
 	defer embeddedgo.Close()
 	t = template.Must(template.New("embeddedgo").Parse(templates.EmbeddedGo))
-	t.Execute(embeddedgo, &TemplatesVariables{
+	t.Execute(embeddedgo, &templates.Data{
 		ProjectName: projectName,
 	})
 	embeddedgo.Sync()
