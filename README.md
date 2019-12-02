@@ -33,9 +33,10 @@ Available commands:
 
    new       Create New Project 
    serve     Hot load your composition while working
+   record    Record audio output in real-time as wav/aiff
    offline   Render the output as wav/aiff 
    embed     Embed all *.wav/*.aiff files as []byte 
-   build     Build a stand-alone binary 
+   build     Build stand-alone application 
 
 Flags:
 
