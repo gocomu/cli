@@ -73,14 +73,15 @@ Your newly created project uses [`clir` library](https://github.com/leaanthony/c
 **NOTE: in order to use the gui template you need `wails` on your system.
 For instructions on how to install refer to [project's documentation](https://github.com/wailsapp/wails#installation).**
 
-### Embed
-
 ### Serve
 
 `gocomu serve`
 
+### Record 
 
 ### Offline render
+
+### Embed
 
 ### Build
 
