@@ -70,8 +70,14 @@ Your newly created project uses [`clir` library](https://github.com/leaanthony/c
 
 #### GUI
 
-**NOTE: in order to use the gui template you need `wails` on your system.
-For instructions on how to install refer to [project's documentation](https://github.com/wailsapp/wails#installation).**
+_This template uses [`Fyne`](https://github.com/fyne-io/fyne)._
+
+_From project's README:_
+
+_In order to use it you will need Go version 1.12 or later. As Fyne uses CGo you will require a C compiler (typically gcc). If you don't have one set up the instructions at Compiling may help.
+By default Fyne uses the gl golang bindings which means you need a working OpenGL configuration (or GLES for ARM or mobile devices). Debian/Ubuntu based systems may also need to install the `libegl1-mesa-dev` and `xorg-dev` packages._
+
+_cFor more information refer to [project's documentation](https://github.com/fyne-io/fyne#prerequisites)._
 
 ### Serve
 
