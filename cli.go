@@ -44,8 +44,14 @@ func ClirActions(cli *clir.Cli) {
 	})
 
 	// offline render
+	var dur int
+	var form int
 	offline := cli.NewSubCommand("offline", "Render the output as wav/aiff")
+	offline.IntFlag("duration", "Duration in minutes of render", &dur)
+	offline.IntFlag("format", "0 = wav, 1 = aiff", &form)
 	offline.Action(func() error {
+		// err := Render(dur, form)
+		// return err
 		println(`** Under Construction **`)
 		return nil
 	})

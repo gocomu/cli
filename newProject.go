@@ -61,7 +61,6 @@ gocomu new %s -name sampleProject
 	// create project's root folder
 	os.Mkdir(projectName, 0755)
 
-	//os.Chdir(projectName)
 	// create gocomu.yml
 	data, _ := yaml.Marshal(&GocomuYaml{
 		Name:        projectName,
@@ -75,7 +74,6 @@ gocomu new %s -name sampleProject
 		fmt.Println(err)
 		return err
 	}
-	//os.Chdir(dir)
 
 	// cmd
 	// create cmd folder

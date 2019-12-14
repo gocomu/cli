@@ -86,12 +86,12 @@ For instructions on how to install refer to [project's documentation](https://gi
 `gocomu build`
 
 
-# TODO
+# TODO for v0.1
 - [x] Create new project
   - [x] CLI Template
-  - [ ] GUI Template
+  - [x] GUI Template
 - [x] Project serve
   - [ ] comu's timeline starting markers/ques flag
-- [ ] Project embedder (wav/aiff)
+- [x] Project embedder (wav/aiff)
 - [ ] Render audio output
 - [x] Build stand-alone app
