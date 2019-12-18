@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"log"
+	"fmt"
 	"os"
 	"os/exec"
 
@@ -9,22 +9,15 @@ import (
 )
 
 func Embed() error {
-	embed()
+	fmt.Println("Embedding started")
+	// generate embed.go
+	templates.CreateFile("cmd/", "gocomuEmbed.go", templates.EmbedGo, &templates.Data{})
+	dir, _ := os.Getwd()
+	// run go run -tags embed ./cmd/embed.go
+	cmd, _ := exec.Command("go", "run", "-tags", "embed", dir+"/cmd/gocomuEmbed.go").Output()
+	fmt.Println(string(cmd))
+	// delete embed.go
+	os.Remove(dir + "/cmd/gocomuEmbed.go")
+	fmt.Println("Finished")
 	return nil
-}
-
-// arg: yamlData.Name
-func embed() {
-	for {
-		// generate embed.go
-		templates.CreateFile("cmd/embed/", "main.go", templates.EmbedGo, &templates.Data{})
-		// run go run -tags embed ./cmd/embed
-		// Start a process:
-		cmd := exec.Command("go", "run", "-tags", "embed", "./cmd/embed")
-		if err := cmd.Start(); err != nil {
-			log.Fatal(err)
-		}
-		// delete embed.go
-		os.Remove("cmd/embed/main.go")
-	}
 }

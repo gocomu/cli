@@ -1,6 +1,7 @@
 package templates
 
 import (
+	"fmt"
 	"os"
 	"text/template"
 )
@@ -14,7 +15,11 @@ type Data struct {
 }
 
 func CreateFile(path, name, tpl string, data *Data) {
-	file, _ := os.Create(path + name)
+	dir, _ := os.Getwd()
+	file, err := os.Create(dir + "/" + path + name)
+	if err != nil {
+		fmt.Println(err)
+	}
 	defer file.Close()
 	t := template.Must(template.New(name).Parse(tpl))
 	t.Execute(file, data)

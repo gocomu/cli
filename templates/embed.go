@@ -172,7 +172,6 @@ func embed(dir, filePath, fileName, path string) {
 }
 
 func userNotice(filePath string) {
-	fmt.Printf("Embedded \"%s\" successfully!", filePath)
-	fmt.Println()
+	fmt.Printf("Embedded \"%s\" successfully! \n", filePath)
 }
 `
