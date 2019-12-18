@@ -99,7 +99,7 @@ _For more information refer to [project's documentation](https://github.com/fyne
   - [x] CLI Template
   - [x] GUI Template
 - [x] Project serve
-  - [ ] comu's timeline starting markers/ques flag
+  - [ ] comu's timeline starting markers flag
 - [x] Project embedder (wav/aiff)
 - [ ] Real-time audio recording (wav/aiff)
 - [ ] Render offline
