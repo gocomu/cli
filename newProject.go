@@ -134,19 +134,19 @@ gocomu new %s -name sampleProject
 	// generate embed.go & emdedded.go
 	embedgo, _ := os.Create(projectName + "/embed/embed.go")
 	defer embedgo.Close()
-	t := template.Must(template.New("embedgo").Parse(templates.EmbedGo))
+	t := template.Must(template.New("fsgo").Parse(templates.FSGo))
 	t.Execute(embedgo, &templates.Data{
 		ProjectName: projectName,
 	})
 	embedgo.Sync()
 
-	embeddedgo, _ := os.Create(projectName + "/embed/embedded.go")
-	defer embeddedgo.Close()
-	t = template.Must(template.New("embeddedgo").Parse(templates.EmbeddedGo))
-	t.Execute(embeddedgo, &templates.Data{
-		ProjectName: projectName,
-	})
-	embeddedgo.Sync()
+	// embeddedgo, _ := os.Create(projectName + "/embed/embedded.go")
+	// defer embeddedgo.Close()
+	// t = template.Must(template.New("embeddedgo").Parse(templates.EmbeddedGo))
+	// t.Execute(embeddedgo, &templates.Data{
+	// 	ProjectName: projectName,
+	// })
+	// embeddedgo.Sync()
 
 	// create output folder
 	os.Mkdir(projectName+"/output", 0755)

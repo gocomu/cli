@@ -43,6 +43,15 @@ func ClirActions(cli *clir.Cli) {
 		return err
 	})
 
+	// real-time record
+	record := cli.NewSubCommand("record", "Render the output as wav/aiff")
+	record.Action(func() error {
+		// err := Render(dur, form)
+		// return err
+		println(`** Under Construction **`)
+		return nil
+	})
+
 	// offline render
 	var dur int
 	var form int
@@ -59,8 +68,8 @@ func ClirActions(cli *clir.Cli) {
 	// embed
 	embed := cli.NewSubCommand("embed", "Embed all *.wav/*.aiff files as []byte")
 	embed.Action(func() error {
-		println(`** Under Construction **`)
-		return nil
+		err := Embed()
+		return err
 	})
 
 	// build a binary

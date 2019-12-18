@@ -15,7 +15,7 @@ func BuildApp() error {
 		panic(lookErr)
 	}
 
-	yamlData := Yaml()
+	yamlData, _ := Yaml()
 	args := []string{"go", "build", "-o", "output/" + yamlData.Name, "./cmd/" + yamlData.Name}
 	env := os.Environ()
 	err := syscall.Exec(binary, args, env)
