@@ -1,5 +1,6 @@
 package templates
 
+// CliTemplateMainGo holds cli template main.go
 const CliTemplateMainGo = `package main
 
 import (

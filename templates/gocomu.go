@@ -1,10 +1,10 @@
 package templates
 
+// GOCOMUGo holds the gocomu.go template
 const GOCOMUGo = `package cmd
 
 import (
-	"fmt"
-	demo "projectStructure"
+	demo "{{ .ProjectName }}"
 
 	"github.com/gocomu/comu/cio"
 )

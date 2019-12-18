@@ -158,7 +158,7 @@ gocomu new %s -name sampleProject
 	// create embed folder
 	os.Mkdir(projectName+"/embed", 0755)
 	// generate embed.go
-	embedgo, _ := os.Create(dir + "/" + projectName + "/embed/embed.go")
+	embedgo, _ := os.Create(dir + "/" + projectName + "/embed/fs.go")
 	defer embedgo.Close()
 	t := template.Must(template.New("fsgo").Parse(templates.FSGo))
 	t.Execute(embedgo, &templates.Data{

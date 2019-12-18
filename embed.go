@@ -8,6 +8,7 @@ import (
 	"github.com/gocomu/cli/templates"
 )
 
+// Embed is used to embded all wav/aiff files under 'embed' dir
 func Embed() error {
 	fmt.Println("Embedding started")
 	// generate embed.go

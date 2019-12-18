@@ -14,6 +14,7 @@ type Data struct {
 	//Output      int
 }
 
+// CreateFile is an helper for creating new files from templates
 func CreateFile(path, name, tpl string, data *Data) {
 	dir, _ := os.Getwd()
 	file, err := os.Create(dir + "/" + path + name)

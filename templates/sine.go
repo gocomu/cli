@@ -1,11 +1,11 @@
 package templates
 
+// SineGo holds the hello world template
 const SineGo = `package {{ .ProjectName }}
 
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/go-audio/audio"
@@ -43,7 +43,7 @@ func Sine(comuIO *cio.AudioIO) {
 		case tempo.BarCounter == 8:
 			fmt.Println("Exiting Demo at bar nu. ", tempo.BarCounter)
 			fmt.Println("Time elapsed ", time.Now().Sub(tempo.TimeStarted))
-			os.Exit(0)
+			return
 		default:
 		}
 	}

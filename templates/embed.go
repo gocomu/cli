@@ -1,5 +1,6 @@
 package templates
 
+// FSGo holds stored (embedded) files template
 const FSGo = `package embed
 
 import (

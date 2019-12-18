@@ -1,5 +1,6 @@
 package templates
 
+// GuiMainGo holds gui template main.go
 const GuiMainGo = `package main
 
 import (
