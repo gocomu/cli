@@ -3,7 +3,6 @@ package cli
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -59,20 +58,26 @@ gocomu.yml file not found!
 
 	// remove cmd/projectName dir from watcher
 	watcher.Remove(dir + "/cmd/" + yamlData.Name)
+	watcher.Remove(dir + "/go.mod")
+	watcher.Remove(dir + "/go.sum")
 
 	// create a blocking channel
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, os.Kill)
-	blcok := make(chan bool)
+	block := make(chan bool)
+
+	// generate serve.go
+	// templates.CreateFile("cmd/"+yamlData.Name, "/gocomuServe.go", templates.ServeGo, &templates.Data{ProjectName: yamlData.Name})
 
 	fmt.Printf(`
-	Started serving %s
-	at %s
-	
-	`, yamlData.Name, timeStarted)
+Started serving %s
+at %s
+
+`, yamlData.Name, timeStarted)
 
 	go func() {
-		go reload(yamlData.Name)
+		// init reload()
+		reload(yamlData.Name)
 		for {
 			select {
 			case event, ok := <-watcher.Events:
@@ -92,18 +97,23 @@ gocomu.yml file not found!
 					trigger <- true
 				}
 			case err, ok := <-watcher.Errors:
+				fmt.Println("error:", err)
 				if !ok {
 					return
 				}
-				fmt.Println("error:", err)
 
 			case <-done:
+				// delete serve.go
+				// dir, _ := os.Getwd()
+				// os.Remove(dir + "/cmd/" + yamlData.Name + "/gocomuServe.go")
+
 				fmt.Printf(`
 
 stoped serving
 time elapsed %s 
 
 `, time.Now().Sub(timeStarted))
+
 				os.Exit(0)
 				return
 			}
@@ -111,7 +121,7 @@ time elapsed %s
 	}()
 
 	// block
-	<-blcok
+	<-block
 
 	return nil
 }
@@ -129,60 +139,30 @@ func watchDir(path string, fi os.FileInfo, err error) error {
 
 // arg: yamlData.Name
 func reload(name string) {
-	for {
-		// generate serve.go
-		templates.CreateFile("cmd/"+name, "/serve.go", templates.ServeGo, &templates.Data{ProjectName: name})
-		// run go run -tags serve ./cmd/{{projectname}}
-		// Start a process:
-		cmd := exec.Command("go", "run", "-tags", "serve", "./cmd/serve.go")
-		if err := cmd.Start(); err != nil {
-			log.Fatal(err)
+	blockingChan := make(chan bool)
+	go func() {
+		for {
+			// generate gocomuServe.go
+			templates.CreateFile("cmd/"+name, "/gocomuServe.go", templates.ServeGo, &templates.Data{ProjectName: name})
+
+			// run 'go run -tags serve ./cmd/{{projectname}}/gocomuServe.go'
+			cmd := exec.Command("go", "run", "-tags", "serve", "./cmd/"+name+"/gocomuServe.go")
+			go func() {
+				time.Sleep(1500 * time.Millisecond)
+				dir, _ := os.Getwd()
+				os.Remove(dir + "/cmd/" + name + "/gocomuServe.go")
+
+				<-trigger
+
+				fmt.Println("reloading...")
+				// kill it
+				if err := cmd.Process.Kill(); err != nil {
+					//fmt.Println("wasn't running")
+				}
+				blockingChan <- true
+			}()
+			cmd.Run()
+			<-blockingChan
 		}
-		// delete serve.go
-		os.Remove("cmd/" + name + "/serve.go")
-		<-trigger
-		fmt.Println("reloading...")
-		// Kill it:
-		if err := cmd.Process.Kill(); err != nil {
-			log.Fatal("failed to kill process: ", err)
-		}
-	}
+	}()
 }
-
-// go run
-// cmd := exec.Command("go", "run", "./cmd/"+yamlData.Name, "play")
-// var stdout, stderr bytes.Buffer
-// cmd.Stdout = &stdout
-// cmd.Stderr = &stderr
-// err = cmd.Run()
-// if err != nil {
-// 	log.Fatalf("cmd.Run() failed with %s\n", err)
-// }
-// outStr, errStr := string(stdout.Bytes()), string(stderr.Bytes())
-// fmt.Printf("out:\n%s\nerr:\n%s\n", outStr, errStr)
-
-// binary, lookErr := exec.LookPath("go")
-// if lookErr != nil {
-// 	panic(lookErr)
-// }
-
-// args := []string{"go", "run", "./cmd/" + yamlData.Name, "play"}
-// env := os.Environ()
-// execErr := syscall.Exec(binary, args, env)
-// if execErr != nil {
-// 	panic(execErr)
-// }
-
-// go run
-// func goRun(projectName string) {
-// 	cmd := exec.Command("go", "run", "./cmd/"+projectName, "play")
-// 	var stdout, stderr bytes.Buffer
-// 	cmd.Stdout = &stdout
-// 	cmd.Stderr = &stderr
-// 	err := cmd.Run()
-// 	if err != nil {
-// 		log.Fatalf("cmd.Run() failed with %s\n", err)
-// 	}
-// 	outStr, errStr := string(stdout.Bytes()), string(stderr.Bytes())
-// 	fmt.Printf("out:\n%s\nerr:\n%s\n", outStr, errStr)
-// }

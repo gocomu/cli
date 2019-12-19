@@ -55,11 +55,11 @@ gocomu provides cli & gui based templates to get you started.
 ```
 .
 ├── cmd
+│   ├── gocomu.go
 │   └── sampleProject
 │       └── main.go
 ├── embed
-│   ├── embedded.go
-│   └── embed.go
+│   └── fs.go
 ├── gocomu.yml
 ├── go.mod
 └── output/
@@ -85,9 +85,15 @@ _For more information refer to [project's documentation](https://github.com/fyne
 
 ### Record 
 
+WIP
+
 ### Offline render
 
+WIP
+
 ### Embed
+
+`gocomu embed`
 
 ### Build
 
@@ -105,3 +111,6 @@ _For more information refer to [project's documentation](https://github.com/fyne
 - [ ] Render offline
 - [x] Build stand-alone app
 - [ ] Examples
+  - [ ] cli
+  - [ ] gui
+  - [ ] cui

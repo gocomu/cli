@@ -7,6 +7,7 @@ require (
 	github.com/go-audio/aiff v1.0.0
 	github.com/go-audio/audio v1.0.0
 	github.com/go-audio/wav v1.0.0
+	github.com/gocomu/comu v0.0.0-20191211124055-f704f309baa4 // indirect
 	github.com/gookit/color v1.2.0
 	github.com/leaanthony/clir v1.0.1
 	golang.org/x/sys v0.0.0-20191128015809-6d18c012aee9 // indirect
