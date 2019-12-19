@@ -84,9 +84,6 @@ _For more information refer to [project's documentation](https://github.com/fyne
 
 `gocomu new gui -name sampleProject`
 
-_GUI template uses the same project structure as desribed above for the cli template, with the exception of main's contents._
-
-
 
 ### Serve
 
