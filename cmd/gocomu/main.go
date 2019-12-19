@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+
 	gocomu "github.com/gocomu/cli"
+	"github.com/gookit/color"
 	"github.com/leaanthony/clir"
 )
 
@@ -12,5 +15,9 @@ func main() {
 	gocomu.ClirActions(cli)
 
 	// Run!
-	cli.Run()
+	err := cli.Run()
+	if err != nil {
+		color.Warn.Printf(fmt.Sprint(err))
+		return
+	}
 }

@@ -12,7 +12,6 @@ func BuildApp() error {
 	yamlData, _ := Yaml()
 	cmd := exec.Command("go", "build", "-o", "output/"+yamlData.Name, "./cmd/"+yamlData.Name)
 	if err := cmd.Run(); err != nil {
-		fmt.Println(err)
 		return err
 	}
 

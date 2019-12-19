@@ -83,7 +83,6 @@ gocomu new %s -name sampleProject
 	})
 	err := ioutil.WriteFile(projectName+"/gocomu.yml", data, 0755)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 

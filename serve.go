@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -11,7 +12,6 @@ import (
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/gocomu/cli/templates"
-	"github.com/gookit/color"
 	"gopkg.in/yaml.v2"
 )
 
@@ -32,12 +32,7 @@ func projectServe() error {
 	if err != nil {
 		data, err = ioutil.ReadFile(dir + "/gocomu.yaml")
 		if err != nil {
-			color.Warn.Printf(`
-Wrong directory.
-gocomu.yml file not found!
-
-`)
-			return err
+			return errors.New("wrong directory. gocomu.yml file not found")
 		}
 
 	}
@@ -52,8 +47,7 @@ gocomu.yml file not found!
 	// starting at the root of the project,
 	// walk each file/directory searching for directories
 	if err := filepath.Walk(dir, watchDir); err != nil {
-		fmt.Println("ERROR", err)
-		return nil
+		return err
 	}
 
 	// remove cmd/projectName dir from watcher
