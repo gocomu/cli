@@ -14,7 +14,7 @@ or simply run `go get github.com/gocomu/cli/cmd/gocomu`
 
 ## Use
 
-Test that everything works by printing `-help` flag
+Test that everything works by printing `-help`
 
 ```
 $ gocomu -help
@@ -48,9 +48,7 @@ Flags:
 
 gocomu provides cli & gui based templates to get you started.
 
-#### CLI
-
-`gocomu new cli -name sampleProject`
+#### Project Structure
 
 ```
 .
@@ -62,8 +60,13 @@ gocomu provides cli & gui based templates to get you started.
 │   └── fs.go
 ├── gocomu.yml
 ├── go.mod
+├── sine.go
 └── output/
 ```
+
+#### CLI
+
+`gocomu new cli -name sampleProject`
 
 Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it at [author's website](https://clir.leaanthony.com/).
 
@@ -78,6 +81,12 @@ _In order to use it you will need Go version 1.12 or later. As Fyne uses CGo you
 By default Fyne uses the gl golang bindings which means you need a working OpenGL configuration (or GLES for ARM or mobile devices). Debian/Ubuntu based systems may also need to install the `libegl1-mesa-dev` and `xorg-dev` packages._
 
 _For more information refer to [project's documentation](https://github.com/fyne-io/fyne#prerequisites)._
+
+`gocomu new gui -name sampleProject`
+
+_GUI template uses the same project structure as desribed above for the cli template, with the exception of main's contents._
+
+
 
 ### Serve
 
@@ -110,7 +119,3 @@ WIP
 - [ ] Real-time audio recording (wav/aiff)
 - [ ] Render offline
 - [x] Build stand-alone app
-- [ ] Examples
-  - [ ] cli
-  - [ ] gui
-  - [ ] cui

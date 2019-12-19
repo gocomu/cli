@@ -35,4 +35,4 @@ release:
 
   prerelease: auto
 
-  name_template: "GOCOMU--v{{.Version}}"
+  name_template: "GOCOMU-v{{.Version}}"
