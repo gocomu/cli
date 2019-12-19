@@ -68,12 +68,12 @@ gocomu provides cli & gui based templates to get you started.
 
 `gocomu new cli -name sampleProject`
 
-Your newly created project uses [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it at [author's website](https://clir.leaanthony.com/).
+CLI projects use [`clir` library](https://github.com/leaanthony/clir). You can find detailed instructions on how to use it at [author's website](https://clir.leaanthony.com/).
 
 
 #### GUI
 
-_This template uses [`Fyne`](https://github.com/fyne-io/fyne)._
+_GUI template uses [`Fyne`](https://github.com/fyne-io/fyne)._
 
 _From project's README:_
 
