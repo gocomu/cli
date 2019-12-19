@@ -17,7 +17,7 @@ func main() {
 	// Run!
 	err := cli.Run()
 	if err != nil {
-		color.Warn.Printf(fmt.Sprint(err))
+		color.Warn.Println(fmt.Sprint(err))
 		return
 	}
 }

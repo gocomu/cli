@@ -103,7 +103,7 @@ WIP
 `gocomu build`
 
 
-# TODO for v0.1
+# Roadmap to v1.0.0
 - [x] Create new project
   - [x] CLI Template
   - [x] GUI Template
