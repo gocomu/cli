@@ -35,7 +35,7 @@ Available commands:
    serve     Hot load your composition while working
    record    Record audio output in real-time as wav/aiff
    offline   Render audio output as wav/aiff 
-   embed     Embed all *.wav/*.aiff files as []byte 
+   embed     Embed all *.wav/*.aiff files in binary
    build     Build stand-alone application 
 
 Flags:
