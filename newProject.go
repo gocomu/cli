@@ -177,6 +177,13 @@ gocomu new %s -name sampleProject
 		return err
 	}
 
+	// run go mod tidy
+	cmd = exec.Command("go", "mod", "tidy")
+	err = cmd.Run()
+	if err != nil {
+		return err
+	}
+
 	fmt.Printf(`
 
 New %s project created!
