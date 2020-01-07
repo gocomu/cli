@@ -27,7 +27,7 @@ $ gocomu -help
 #+#    #+#     #+#    #+#     #+#    #+#     #+#    #+#      #+#       #+#    #+#    #+#      
 ########       ########       ########       ########       ###       ###     ########        
 
-  v0.0.1 - GOCOMU CLI
+  v0.0.3 - GOCOMU CLI
 
 Available commands:
 
@@ -113,6 +113,9 @@ A common scenario is delivering your audio as a ready application and is incovin
 
 `gocomu build`
 
+### Update 
+
+`gocomu update`
 
 # Roadmap to v1.0.0
 - [x] Create new project
