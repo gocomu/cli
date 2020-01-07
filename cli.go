@@ -78,6 +78,13 @@ func ClirActions(cli *clir.Cli) {
 		err := BuildApp()
 		return err
 	})
+
+	// update gocomu
+	update := cli.NewSubCommand("update", "Update GOCOMU to latest version")
+	update.Action(func() error {
+		err := Update()
+		return err
+	})
 }
 
 func customBanner(cli *clir.Cli) string {
