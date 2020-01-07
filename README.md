@@ -37,6 +37,7 @@ Available commands:
    offline   Render audio output as wav/aiff 
    embed     Embed all *.wav/*.aiff files in binary
    build     Build stand-alone application 
+   update    Update GOCOMU to latest version
 
 Flags:
 
