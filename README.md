@@ -84,6 +84,10 @@ _For more information refer to [project's documentation](https://github.com/fyne
 
 ### Serve
 
+Using gocomu you can serve your project and have it reload while you are working on it.
+
+To do that simply run
+
 `gocomu serve`
 
 ### Record 
@@ -95,6 +99,12 @@ WIP
 WIP
 
 ### Embed
+
+Embedding files in gocomu's context means packing samples (wav/aiff) to the final binary.
+
+This way all your audio files are compiled into the final application eliminating extarnal dependencies.
+
+A common scenario is delivering your audio as a ready application and is incoviniant to include your samples.
 
 `gocomu embed`
 
@@ -108,7 +118,7 @@ WIP
   - [x] CLI Template
   - [x] GUI Template
 - [x] Project serve
-  - [ ] comu's timeline starting markers flag
+  - [ ] timeline starting markers flag
 - [x] Project embedder (wav/aiff)
 - [ ] Real-time audio recording (wav/aiff)
 - [ ] Render offline
