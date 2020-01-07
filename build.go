@@ -15,7 +15,7 @@ func BuildApp() error {
 		return err
 	}
 
-	fmt.Printf(`Sucess! File %s can be found inside "output/" directory
+	fmt.Printf(`File %s can be found inside "output/" directory
 `, yamlData.Name)
 
 	return nil

@@ -51,6 +51,7 @@ func projectServe() error {
 	}
 
 	// remove cmd/projectName dir from watcher
+	// TODO: the way it is now you seems u can't edit files inside cmd dir, fix or rationalise
 	watcher.Remove(dir + "/cmd/" + yamlData.Name)
 	watcher.Remove(dir + "/go.mod")
 	watcher.Remove(dir + "/go.sum")
