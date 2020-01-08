@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Create new cli
-	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", "v0.0.3")
+	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", "v0.0.4")
 
 	gocomu.ClirActions(cli)
 

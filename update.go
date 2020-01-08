@@ -5,7 +5,7 @@ import (
 	"os/exec"
 )
 
-func Update() error {
+func updateGocomu() error {
 	fmt.Println("updating")
 	// run go mod tidy
 	cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli")

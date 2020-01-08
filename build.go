@@ -6,7 +6,7 @@ import (
 )
 
 // BuildApp .
-func BuildApp() error {
+func buildApp() error {
 	fmt.Println("Started Building")
 
 	yamlData, _ := Yaml()

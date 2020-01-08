@@ -9,7 +9,7 @@ import (
 )
 
 // Embed is used to embded all wav/aiff files under 'embed' dir
-func Embed() error {
+func embedAudio() error {
 	fmt.Println("Embedding started")
 	// generate embed.go
 	templates.CreateFile("cmd/", "gocomuEmbed.go", templates.EmbedGo, &templates.Data{})

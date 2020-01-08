@@ -68,21 +68,21 @@ func ClirActions(cli *clir.Cli) {
 	// embed
 	embed := cli.NewSubCommand("embed", "Embed all *.wav/*.aiff files as []byte")
 	embed.Action(func() error {
-		err := Embed()
+		err := embedAudio()
 		return err
 	})
 
 	// build a binary
 	build := cli.NewSubCommand("build", "Build a stand-alone binary")
 	build.Action(func() error {
-		err := BuildApp()
+		err := buildApp()
 		return err
 	})
 
 	// update gocomu
 	update := cli.NewSubCommand("update", "Update GOCOMU to latest version")
 	update.Action(func() error {
-		err := Update()
+		err := updateGocomu()
 		return err
 	})
 }
