@@ -8,7 +8,7 @@ import (
 
 func updateGocomu() error {
 	fmt.Println("updating")
-	dir, _ := os.Getwd()
+	dir, _ := os.UserHomeDir()
 	os.Mkdir(dir+"/.gocomutmp", 0755)
 	cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli")
 	cmd.Env = os.Environ()
