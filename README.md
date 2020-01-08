@@ -102,9 +102,9 @@ WIP
 
 Embedding files in gocomu's context means packing samples (wav/aiff) to the final binary.
 
-This way all your audio files are compiled into the final application eliminating extarnal dependencies.
+This way all your audio files are compiled into the final application eliminating external dependencies.
 
-A common scenario is delivering your audio as a ready application and is incoviniant to include your samples.
+A common scenario is delivering your audio as a ready application and is incoviniant to include your audio samples as seperate files.
 
 `gocomu embed`
 
