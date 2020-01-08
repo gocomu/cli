@@ -8,12 +8,14 @@ import (
 
 func updateGocomu() error {
 	fmt.Println("updating")
-	os.Setenv("GO111MODULE", "off")
+
 	cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli")
-	err := cmd.Run()
-	if err != nil {
+	cmd.Env = os.Environ()
+	cmd.Env = append(cmd.Env, "GO111MODULE=off")
+	if err := cmd.Run(); err != nil {
 		return err
 	}
+
 	fmt.Println("Done!")
 	return nil
 }
