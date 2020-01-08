@@ -27,7 +27,6 @@ var yamlData GocomuYaml
 func projectServe() error {
 	// check if gocomu.yml is present inside current dir
 	dir, _ := os.Getwd()
-	fmt.Println("test")
 	data, err := ioutil.ReadFile(dir + "/gocomu.yml")
 	if err != nil {
 		data, err = ioutil.ReadFile(dir + "/gocomu.yaml")
@@ -36,7 +35,7 @@ func projectServe() error {
 		}
 
 	}
-	fmt.Println("test222")
+
 	yaml.Unmarshal(data, &yamlData)
 	// do stuff with yamlData
 	// then continue
