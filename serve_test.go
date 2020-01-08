@@ -28,7 +28,7 @@ func TestServe(t *testing.T) {
 	})
 
 	os.Chdir(dir)
-	os.RemoveAll(dir + "/test")
+	os.Remove(dir + "/test")
 
 	t.Run("Run reload()", func(t *testing.T) {
 		reload("test")

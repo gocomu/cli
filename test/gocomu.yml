@@ -1,5 +1,0 @@
-name: test
-description: Demo Project
-version: v0.0.0
-type: gui
-serveoutput: PortAudio
