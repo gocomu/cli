@@ -115,14 +115,3 @@ A common scenario is delivering your audio as a ready application and is incovin
 ### Update 
 
 `gocomu update`
-
-# Roadmap to v1.0.0
-- [x] Create new project
-  - [x] CLI Template
-  - [x] GUI Template
-- [x] Project serve
-  - [ ] timeline starting markers flag
-- [x] Project embedder (wav/aiff)
-- [ ] Real-time audio recording (wav/aiff)
-- [ ] Render offline
-- [x] Build stand-alone app
