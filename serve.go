@@ -16,50 +16,7 @@ import (
 var watcher *fsnotify.Watcher
 
 // reload chan
-var trigger = make(chan bool)
-
-// projectServe .
-func projectServe() error {
-	yamlData, _ := Yaml()
-
-	timeStarted := time.Now()
-	// creates a new file watcher
-	watcher, _ = fsnotify.NewWatcher()
-	defer watcher.Close()
-
-	// starting at the root of the project,
-	// walk each file/directory searching for directories
-	if err := filepath.Walk(dir, watchDir); err != nil {
-		fmt.Println(err)
-		return err
-	}
-
-	// remove cmd/projectName dir from watcher
-	// TODO: the way it is now, seems u can't edit files inside cmd dir, fix or rationalize
-	watcher.Remove(filepath.Join(dir, "cmd", yamlData.Name))
-	// watcher.Remove(dir + "/cmd/" + yamlData.Name + "/gocomuServe.go")
-	watcher.Remove(filepath.Join(dir, "go.mod"))
-	watcher.Remove(filepath.Join(dir, "go.sum"))
-
-	fmt.Printf(`
-Serving %s
-started: %s
-
-	`, yamlData.Name, timeStarted)
-
-	// init reload()
-	go reload(yamlData.Name)
-	time.Sleep(1500 * time.Millisecond)
-
-	// fsnotify events
-	go events(timeStarted)
-
-	// create a blocking channel
-	block := make(chan bool)
-	<-block
-
-	return nil
-}
+var trigger = make(chan bool, 1)
 
 // watchDir gets run as a walk func, searching for directories to add watchers to
 func watchDir(path string, fi os.FileInfo, err error) error {
@@ -78,11 +35,12 @@ func watchDir(path string, fi os.FileInfo, err error) error {
 func reload(name string) {
 	for {
 		// generate gocomuServe.go
-		templates.CreateFile(filepath.Join(dir, "cmd"), "gocomuServe.go", templates.ServeGo, &templates.Data{ProjectName: name})
+		templates.CreateFile(filepath.Join(dir, "cmd", name), "gocomuServe.go", templates.ServeGo, &templates.Data{ProjectName: name})
 
 		// run 'go run -tags serve ./cmd/{{projectname}}/gocomuServe.go'
 		cmd := exec.Command("go", "run", "-tags", "serve", filepath.Join(dir, "cmd", name, "gocomuServe.go"))
-		cmd.Run()
+		cmd.Start()
+		time.Sleep(1000 * time.Millisecond)
 		os.Remove(filepath.Join(dir, "cmd", name, "gocomuServe.go"))
 
 		<-trigger
@@ -121,10 +79,53 @@ func events(timeStarted time.Time) {
 Stopped
 time elapsed: %s 
 
-			`, time.Now().Sub(timeStarted))
+`, time.Now().Sub(timeStarted))
 
 			os.Exit(0)
 			return
 		}
 	}
+}
+
+// projectServe .
+func projectServe() error {
+	yamlData, _ := Yaml()
+
+	timeStarted := time.Now()
+	// creates a new file watcher
+	watcher, _ = fsnotify.NewWatcher()
+	defer watcher.Close()
+
+	// starting at the root of the project,
+	// walk each file/directory searching for directories
+	if err := filepath.Walk(dir, watchDir); err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	// remove cmd/projectName dir from watcher
+	// TODO: the way it is now, seems u can't edit files inside cmd dir, fix or rationalize
+	watcher.Remove(filepath.Join(dir, "cmd", yamlData.Name))
+	// watcher.Remove(dir + "/cmd/" + yamlData.Name + "/gocomuServe.go")
+	watcher.Remove(filepath.Join(dir, "go.mod"))
+	watcher.Remove(filepath.Join(dir, "go.sum"))
+
+	fmt.Printf(`
+Serving %s
+started: %s
+
+`, yamlData.Name, timeStarted)
+
+	// init reload()
+	go reload(yamlData.Name)
+	time.Sleep(1500 * time.Millisecond)
+
+	// fsnotify events
+	go events(timeStarted)
+
+	// create a blocking channel
+	block := make(chan bool)
+	<-block
+
+	return nil
 }
