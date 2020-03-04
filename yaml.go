@@ -1,8 +1,9 @@
 package cli
 
 import (
-	"fmt"
+	"errors"
 	"io/ioutil"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -18,12 +19,20 @@ type GocomuYaml struct {
 
 // Yaml reads & returns content from gocomu.yml
 func Yaml() (*GocomuYaml, error) {
-	data, err := ioutil.ReadFile("gocomu.yml")
+	// check if gocomu.yml is present inside current dir
+	gocomuYml := filepath.Join(dir, "gocomu.yml")
+	gocomuYaml := filepath.Join(dir, "gocomu.yaml")
+	data, err := ioutil.ReadFile(gocomuYaml)
 	if err != nil {
-		return nil, fmt.Errorf("Are you in the correct directory? \n Error: %v", err)
+		data, err = ioutil.ReadFile(gocomuYml)
+		if err != nil {
+			return nil, errors.New("Wrong directory. `gocomu.yml` file not found")
+		}
+
 	}
 
 	yamlData := &GocomuYaml{}
 	yaml.Unmarshal(data, &yamlData)
+
 	return yamlData, nil
 }

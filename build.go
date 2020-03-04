@@ -3,19 +3,20 @@ package cli
 import (
 	"fmt"
 	"os/exec"
+	"path/filepath"
 )
 
 // BuildApp .
 func buildApp() error {
-	fmt.Println("Started Building")
+	fmt.Println("Building")
 
 	yamlData, _ := Yaml()
-	cmd := exec.Command("go", "build", "-o", "output/"+yamlData.Name, "./cmd/"+yamlData.Name)
+	cmd := exec.Command("go", "build", "-o", filepath.Join(dir, "output", yamlData.Name), filepath.Join(dir, "cmd", yamlData.Name))
 	if err := cmd.Run(); err != nil {
 		return err
 	}
 
-	fmt.Printf(`File %s can be found inside "output/" directory
+	fmt.Printf(`Binary %s built successfully, check "output/" directory
 `, yamlData.Name)
 
 	return nil

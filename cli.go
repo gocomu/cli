@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"fmt"
+
 	"github.com/leaanthony/clir"
 )
 
@@ -84,6 +86,13 @@ func ClirActions(cli *clir.Cli) {
 	update.Action(func() error {
 		err := updateGocomu()
 		return err
+	})
+
+	// print version
+	version := cli.NewSubCommand("version", "Returns binary's version")
+	version.Action(func() error {
+		fmt.Println(cli.Version())
+		return nil
 	})
 }
 

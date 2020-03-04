@@ -3,6 +3,7 @@ package templates
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"text/template"
 )
 
@@ -15,9 +16,8 @@ type Data struct {
 }
 
 // CreateFile is an helper for creating new files from templates
-func CreateFile(path, name, tpl string, data *Data) {
-	dir, _ := os.Getwd()
-	file, err := os.Create(dir + "/" + path + name)
+func CreateFile(dir, name, tpl string, data *Data) {
+	file, err := os.Create(filepath.Join(dir, name))
 	if err != nil {
 		fmt.Println(err)
 	}
