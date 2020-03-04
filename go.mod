@@ -7,6 +7,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-audio/aiff v1.0.0 // indirect
 	github.com/go-audio/wav v1.0.0 // indirect
+	github.com/google/go-github/v29 v29.0.3
 	github.com/gookit/color v1.2.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/leaanthony/clir v1.0.2

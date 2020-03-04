@@ -45,7 +45,7 @@ func projectServe() error {
 Serving %s
 started: %s
 
-`, yamlData.Name, timeStarted)
+	`, yamlData.Name, timeStarted)
 
 	// init reload()
 	go reload(yamlData.Name)
