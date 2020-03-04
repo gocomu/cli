@@ -17,6 +17,7 @@ const guiEndNote = `Note: Gui support is provided by Fyne library https://github
 Documentation on how to use it can be found at https://fyne.io/
 Examples and demos live at https://github.com/gocomu/cli/examples`
 
+// newProject .
 func newProject(projectType ProjectType, projectName string, rtOut RTout) error {
 	var endNote string
 	var ptype string
@@ -148,7 +149,7 @@ func newProject(projectType ProjectType, projectName string, rtOut RTout) error 
 	embedgo.Sync()
 
 	// create output folder
-	os.Mkdir(projectName+"/output", 0755)
+	os.Mkdir(filepath.Join(dir, projectName, "output"), 0755)
 
 	// run go mod init projectName
 	projectDir := filepath.Join(dir, projectName)

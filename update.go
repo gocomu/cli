@@ -1,27 +1,45 @@
 package cli
 
 import (
+	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 )
 
+// updateGocomu checks against github's latest release
+// and if there is a newer tag updates the binary
 func updateGocomu() error {
-	fmt.Println("Current version")
+	// get current version
 	version, err := exec.Command("gocomu", "version").Output()
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(version))
 
+	// fetch github latest release tag
+	latestVersion, err := exec.Command("gocomu", "version").Output()
+	if err != nil {
+		return err
+	}
+
+	// if versions are equal stop the process
+	if string(version) == string(latestVersion) {
+		return errors.New("Already up to date")
+	}
+
+	// else move on with the update
 	fmt.Println("Updating")
-	// cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli/cmd/gocomu")
-	// cmd.Env = os.Environ()
-	// cmd.Env = append(cmd.Env, "GO111MODULE=off")
-	// if err := cmd.Run(); err != nil {
-	// 	return err
-	// }
+	// for the update, very conveniently, we use `go get`
+	cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli/cmd/gocomu")
+	cmd.Env = os.Environ()
+	// we need to run the command with GO111MODULE env off
+	cmd.Env = append(cmd.Env, "GO111MODULE=off")
+	if err := cmd.Run(); err != nil {
+		return err
+	}
 
 	fmt.Println("New version")
+	// print/check new version
 	newVersion, err := exec.Command("gocomu", "version").Output()
 	if err != nil {
 		return err

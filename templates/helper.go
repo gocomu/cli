@@ -8,7 +8,7 @@ import (
 )
 
 // Data holds values to be substituted
-// when creating/executing biolerplate templates
+// when creating/executing boilerplate templates
 type Data struct {
 	ProjectName string
 	//ProjectType int

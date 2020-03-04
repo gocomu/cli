@@ -9,7 +9,7 @@ import (
 	"github.com/gocomu/cli/templates"
 )
 
-// Embed is used to embded all wav/aiff files under 'embed' dir
+// embedAudio is used to embded all wav/aiff files under 'embed' dir
 func embedAudio() error {
 	fmt.Println("Embedding")
 	fmt.Println("This might take a while, depending on the size of audio files")

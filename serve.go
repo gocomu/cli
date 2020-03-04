@@ -12,12 +12,13 @@ import (
 	"github.com/gocomu/cli/templates"
 )
 
-// fsnotify
+// fsnotify watcher
 var watcher *fsnotify.Watcher
 
-// reaload chan
+// reload chan
 var trigger = make(chan bool)
 
+// projectServe .
 func projectServe() error {
 	yamlData, _ := Yaml()
 
@@ -40,10 +41,6 @@ func projectServe() error {
 	watcher.Remove(filepath.Join(dir, "go.mod"))
 	watcher.Remove(filepath.Join(dir, "go.sum"))
 
-	// create a blocking channel
-	done := make(chan os.Signal, 1)
-	signal.Notify(done, os.Interrupt, os.Kill)
-
 	fmt.Printf(`
 Serving %s
 started: %s
@@ -54,39 +51,12 @@ started: %s
 	go reload(yamlData.Name)
 	time.Sleep(1500 * time.Millisecond)
 
-	go func() {
-		for {
-			select {
-			case event, ok := <-watcher.Events:
-				if !ok {
-					return
-				}
+	// fsnotify events
+	go events(timeStarted)
 
-				if event.Op&fsnotify.Create == fsnotify.Create || event.Op&fsnotify.Write == fsnotify.Write || event.Op&fsnotify.Rename == fsnotify.Rename || event.Op&fsnotify.Remove == fsnotify.Remove {
-					trigger <- true
-				}
-			case err, ok := <-watcher.Errors:
-				fmt.Println("error:", err)
-				if !ok {
-					return
-				}
-
-			case <-done:
-				fmt.Printf(`
-
-Stopped
-time elapsed: %s 
-
-`, time.Now().Sub(timeStarted))
-
-				os.Exit(0)
-				return
-			}
-		}
-	}()
-
-	// block
-	<-done
+	// create a blocking channel
+	block := make(chan bool)
+	<-block
 
 	return nil
 }
@@ -121,6 +91,40 @@ func reload(name string) {
 		// kill it
 		if err := cmd.Process.Kill(); err != nil {
 			fmt.Println(err)
+		}
+	}
+}
+
+func events(timeStarted time.Time) {
+	done := make(chan os.Signal, 1)
+	signal.Notify(done, os.Interrupt, os.Kill)
+
+	for {
+		select {
+		case event, ok := <-watcher.Events:
+			if !ok {
+				return
+			}
+
+			if event.Op&fsnotify.Create == fsnotify.Create || event.Op&fsnotify.Write == fsnotify.Write || event.Op&fsnotify.Rename == fsnotify.Rename || event.Op&fsnotify.Remove == fsnotify.Remove {
+				trigger <- true
+			}
+		case err, ok := <-watcher.Errors:
+			fmt.Println("error:", err)
+			if !ok {
+				return
+			}
+
+		case <-done:
+			fmt.Printf(`
+
+Stopped
+time elapsed: %s 
+
+			`, time.Now().Sub(timeStarted))
+
+			os.Exit(0)
+			return
 		}
 	}
 }
