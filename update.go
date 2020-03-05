@@ -53,6 +53,8 @@ func updateGocomu() error {
 		return err
 	}
 
+	fmt.Println("Done!")
+
 	fmt.Println("New version")
 	// print/check new version
 	newVersion, err := exec.Command("gocomu", "version").Output()
@@ -61,6 +63,5 @@ func updateGocomu() error {
 	}
 	fmt.Println(strings.TrimSuffix(string(newVersion), "\n"))
 
-	fmt.Println("Done!")
 	return nil
 }
