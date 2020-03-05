@@ -20,7 +20,8 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Update version
-      run: cd $GITHUB_WORKSPACE/cli && go run ./version/version.go
+      run: go run ./version/version.go
+      working-directory: $GITHUB_WORKSPACE
 
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v1
