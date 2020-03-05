@@ -18,7 +18,10 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
-      
+
+    - name: Update version
+      run: go run ./version/version.go
+
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v1
       with:
@@ -30,5 +33,5 @@ jobs:
     # - name: Run tests
     #   run: go test -race -coverprofile=coverage.txt -covermode=atomic
 
-    - name: Upload results to Codecov
-      run: bash <(curl -s https://codecov.io/bash) -t ${{secrets.CODECOV_TOKEN}}
+    # - name: Upload results to Codecov
+    #   run: bash <(curl -s https://codecov.io/bash) -t ${{secrets.CODECOV_TOKEN}}
