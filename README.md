@@ -10,6 +10,12 @@
 
 You can download the latest pre-compiled binary from [releases](https://github.com/gocomu/cli/releases)
 
+<!-- OS | _Link_
+--- | ---
+**Win** | _`renders`_
+**Mac** | _2_
+**Lin** | _3_ -->
+
 or run `go get -u -ldflags "-X main.version=v0.0.33" github.com/gocomu/cli/cmd/gocomu`
 
 ## Use
