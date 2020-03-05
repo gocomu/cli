@@ -22,6 +22,17 @@ jobs:
     - name: Update version
       run:  cd $GITHUB_WORKSPACE && go run ./version/version.go
 
+    - name: Commit files
+      run: |
+        git config --local user.email "ktc@pm.me"
+        git config --local user.name "bh90210"
+        git commit -m "Add changes" -a
+  
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.gh_token }}
+
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v1
       with:

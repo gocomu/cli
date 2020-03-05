@@ -4,13 +4,15 @@ import (
 	"fmt"
 
 	gocomu "github.com/gocomu/cli"
-	// release "github.com/gocomu/version"
 	"github.com/leaanthony/clir"
 )
 
+// Version .
+var Version string
+
 func main() {
 	// Create new cli
-	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", gocomu.Version)
+	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", Version)
 
 	gocomu.ClirActions(cli)
 

@@ -13,5 +13,5 @@
 
 cp.out
 
-version.go
+!version.go
 !version/version.go
