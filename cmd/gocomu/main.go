@@ -8,11 +8,11 @@ import (
 )
 
 // Version .
-var Version string
+var version = "v0.0.1"
 
 func main() {
 	// Create new cli
-	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", Version)
+	cli := clir.NewCli("GOCOMU", "GOCOMU CLI", version)
 
 	gocomu.ClirActions(cli)
 

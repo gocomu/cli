@@ -10,10 +10,7 @@
 
 You can download the latest pre-compiled binary from [releases](https://github.com/gocomu/cli/releases)
 
-or run 
-```
-go get -u -ldflags "-X main.Version=`go run github.com/gocomu/cli/version.go`" github.com/gocomu/cli/cmd/gocomu
-```
+or run `go get -u -ldflags "-X main.version=v0.0.26" github.com/gocomu/cli/cmd/gocomu`
 
 ## Use
 
