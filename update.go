@@ -41,7 +41,7 @@ func updateGocomu() error {
 	if strings.TrimSuffix(string(version), "\n") == string(latestVersion) {
 		return errors.New("Already up to date")
 	}
-	fmt.Println(latestVersion)
+
 	// else move on with the update
 	fmt.Println("Updating")
 	// for the update, very conveniently, we use `go get`
