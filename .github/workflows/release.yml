@@ -20,8 +20,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Update version
-      run: go run ./version/version.go
-      working-directory: $GITHUB_WORKSPACE
+      run:  cd $GITHUB_WORKSPACE && go run ./version/version.go
 
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v1
@@ -30,9 +29,3 @@ jobs:
         args: release
       env:
         GITHUB_TOKEN: ${{ secrets.gh_token }}
-
-    # - name: Run tests
-    #   run: go test -race -coverprofile=coverage.txt -covermode=atomic
-
-    # - name: Upload results to Codecov
-    #   run: bash <(curl -s https://codecov.io/bash) -t ${{secrets.CODECOV_TOKEN}}
