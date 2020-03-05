@@ -12,6 +12,3 @@
 *.out
 
 cp.out
-
-!version.go
-!version/version.go
