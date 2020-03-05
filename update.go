@@ -45,7 +45,7 @@ func updateGocomu() error {
 	// else move on with the update
 	fmt.Println("Updating")
 	// for the update, very conveniently, we use `go get`
-	cmd := exec.Command("go", "get", "-u", "github.com/gocomu/cli/cmd/gocomu")
+	cmd := exec.Command("go", "get", "-u", "-ldflags", "'-X main.Version="+string(latestVersion)+"'", "github.com/gocomu/cli/cmd/gocomu")
 	cmd.Env = os.Environ()
 	// we need to run the command with GO111MODULE env off
 	cmd.Env = append(cmd.Env, "GO111MODULE=off")
